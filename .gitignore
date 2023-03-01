@@ -186,3 +186,6 @@ Temporary Items
 # VSCode
 .vscode/
 
+# Maven
+target/
+
