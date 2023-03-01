@@ -18,22 +18,21 @@ public class App {
         scanner.close();
 
         String weatherData = getWeatherData(city);
-        if(weatherData.contains("error")) {
-            System.out.println("No such city exists, or you may have made a typo.");
-        } else {
-            double temperatureCelsius = getTemperatureCelsius(weatherData);
-            double temperatureFahrenheit = getTemperatureFahrenheit(weatherData);
-            int humidity = getHumidity(weatherData);
-            double windSpeed = getWindSpeed(weatherData);
-            String windDirection = getWindDirection(weatherData);
-
-            String temperatureFormat = temperatureCelsius + "°C " + temperatureFahrenheit + "°F";
-            System.out.println("Temperature: " + temperatureFormat);
-            System.out.println("Humidity: " + humidity + "%");
-            System.out.println("Wind speed: " + windSpeed + " kph");
-            System.out.println("Wind direction: " + windDirection);
-            
+        if(weatherData == null) {
+            return;
         }
+
+        double temperatureCelsius = getTemperatureCelsius(weatherData);
+        double temperatureFahrenheit = getTemperatureFahrenheit(weatherData);
+        int humidity = getHumidity(weatherData);
+        double windSpeed = getWindSpeed(weatherData);
+        String windDirection = getWindDirection(weatherData);
+
+        String temperatureFormat = temperatureCelsius + "°C " + temperatureFahrenheit + "°F";
+        System.out.println("Temperature: " + temperatureFormat);
+        System.out.println("Humidity: " + humidity + "%");
+        System.out.println("Wind speed: " + windSpeed + " kph");
+        System.out.println("Wind direction: " + windDirection); 
     }
 
     /**
@@ -56,7 +55,14 @@ public class App {
             reader.close();
             return stringBuilder.toString();
         } catch (Exception e) {
-            e.printStackTrace();
+            String errorMessage = e.toString();
+            if(errorMessage.contains("HTTP response code: 400")) {
+                System.out.println("City not found.");
+            } else {
+                System.out.println("Could not fetch the data, parhaps there's something " +
+                "wrong with your connection, or that the api is off. Error message:");
+                System.out.println(errorMessage);
+            }
             return null;
         }
     }
