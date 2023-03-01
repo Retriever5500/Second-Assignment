@@ -20,19 +20,9 @@ public class App {
         String weatherData = getWeatherData(city);
         if(weatherData == null) {
             return;
+        } else {
+            printWeatherData(weatherData);
         }
-
-        double temperatureCelsius = getTemperatureCelsius(weatherData);
-        double temperatureFahrenheit = getTemperatureFahrenheit(weatherData);
-        int humidity = getHumidity(weatherData);
-        double windSpeed = getWindSpeed(weatherData);
-        String windDirection = getWindDirection(weatherData);
-
-        String temperatureFormat = temperatureCelsius + "°C " + temperatureFahrenheit + "°F";
-        System.out.println("Temperature: " + temperatureFormat);
-        System.out.println("Humidity: " + humidity + "%");
-        System.out.println("Wind speed: " + windSpeed + " kph");
-        System.out.println("Wind direction: " + windDirection); 
     }
 
     /**
@@ -104,5 +94,18 @@ public class App {
         return answer;
     }
 
+    public static void printWeatherData(String weatherData) {
+        double temperatureCelsius = getTemperatureCelsius(weatherData);
+        double temperatureFahrenheit = getTemperatureFahrenheit(weatherData);
+        int humidity = getHumidity(weatherData);
+        double windSpeed = getWindSpeed(weatherData);
+        String windDirection = getWindDirection(weatherData);
+
+        String temperatureFormat = temperatureCelsius + "°C " + temperatureFahrenheit + "°F";
+        System.out.println("Temperature: " + temperatureFormat);
+        System.out.println("Humidity: " + humidity + "%");
+        System.out.println("Wind speed: " + windSpeed + " kph");
+        System.out.println("Wind direction: " + windDirection); 
+    }
 }
 
