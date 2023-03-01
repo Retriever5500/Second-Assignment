@@ -9,10 +9,23 @@ import java.util.Scanner;
 
 public class App {
     // Copy your API-KEY here
-    public final static String apiKey = "API-KEY";
+    public final static String apiKey = "a3078107abc9440fa9e170129232702";
     // TODO: Write main function
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Choose a city to fetch its temperature and humidity: ");
+        String city = scanner.next();
+        scanner.close();
 
+        String weatherData = getWeatherData(city);
+        if(weatherData.contains("error")) {
+            System.out.println("No such city exists, or you may have made a typo.");
+        } else {
+            double temperature = getTemperature(weatherData);
+            int humidity = getHumidity(weatherData);
+            System.out.println("Temperature: " + temperature + "°C");
+            System.out.println("Humidity: " + humidity + "%");
+        }
     }
 
     /**
@@ -43,12 +56,16 @@ public class App {
     // TODO: Write getTemperature function returns celsius temperature of city by given json string
     public static double getTemperature(String weatherJson){
         double answer = 0.0;
+        JSONObject jsonData = new JSONObject(weatherJson);
+        answer = jsonData.getJSONObject("current").getDouble("temp_c");
         return answer;
     }
 
     // TODO: Write getHumidity function returns humidity percentage of city by given json string
     public static int getHumidity(String weatherJson){
         int answer = 0;
+        JSONObject jsonData = new JSONObject(weatherJson);
+        answer = jsonData.getJSONObject("current").getInt("humidity");
         return answer;
     }
 }
