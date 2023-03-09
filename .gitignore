@@ -183,3 +183,9 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+# VSCode
+.vscode/
+
+# Maven
+target/
+
